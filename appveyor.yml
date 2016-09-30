@@ -1,12 +1,14 @@
 configuration: Release
 
-init:
-  - cmd: set
-  
+environment:
+  SignClientSecret:
+    secure: S26+NphAhj/vo5ZdHd/N/4toty3ztdNGmuNdvAB57W1oIVQEHVKqAVuhTD8B9ATy
+     
 install: 
-  - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe  
+  - cmd: appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/v3.5.0-rc1/NuGet.exe
   - cmd: nuget install GitVersion.CommandLine -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
   - cmd: nuget install gitlink -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
+  - cmd: nuget install SignClient -Version 0.5.0-beta3 -SolutionDir %APPVEYOR_BUILD_FOLDER% -Verbosity quiet -ExcludeVersion -pre
      
 before_build:
   - cmd: nuget restore Zeroconf.sln
@@ -20,6 +22,7 @@ build:
 after_build:
   - cmd: '.\packages\gitlink\lib\net45\GitLink.exe . -f Zeroconf.sln -u https://github.com/onovotny/Zeroconf -s %APPVEYOR_REPO_COMMIT% -errorsaswarnings'
   - cmd: nuget pack nuget\Zeroconf.nuspec -version "%GitVersion_NuGetVersion%-bld%GitVersion_BuildMetaDataPadded%" -prop "target=%CONFIGURATION%" -NoPackageAnalysis
+  - ps: '.\SignClient\SignPackage.ps1'
   - cmd: appveyor PushArtifact "Zeroconf.%GitVersion_NuGetVersion%-bld%GitVersion_BuildMetaDataPadded%.nupkg"  
   
 deploy:

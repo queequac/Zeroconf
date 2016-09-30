@@ -82,9 +82,9 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Zeroconf.Android\Zeroconf.Android.csproj">
-      <Project>{d53c37c2-1588-4716-b242-5b52fd896738}</Project>
-      <Name>Zeroconf.Android</Name>
+    <ProjectReference Include="..\..\Zeroconf.DotNetCore\Zeroconf.DotNetCore.csproj">
+      <Project>{982a1ee8-900e-435a-b27e-5a779a693651}</Project>
+      <Name>Zeroconf.DotNetCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZeroconfTest.Xamarin\ZeroconfTest.Xam.csproj">
       <Name>ZeroconfTest.Xam</Name>
