@@ -31,7 +31,7 @@ namespace ZeroconfTest.NetFx
             InitializeComponent();
         }
 
-        async void Button_Click(object sender, RoutedEventArgs e)
+        async void Resolve_Click(object sender, RoutedEventArgs e)
         {
 
             //Action<IZeroconfRecord> onMessage = record => Console.WriteLogLine("On Message: {0}", record);
@@ -60,7 +60,7 @@ namespace ZeroconfTest.NetFx
             }
         }
 
-        private void WriteLogLine(string text, params object[] args)
+        void WriteLogLine(string text, params object[] args)
         {
             if (Log.Dispatcher.CheckAccess())
             {
@@ -73,7 +73,7 @@ namespace ZeroconfTest.NetFx
             }
         }
 
-        private void OnAnnouncement(ServiceAnnouncement sa)
+        void OnAnnouncement(ServiceAnnouncement sa)
         {
             Log.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
@@ -82,7 +82,7 @@ namespace ZeroconfTest.NetFx
             }));
         }
 
-        private void OnWindowClosed(object sender, EventArgs e)
+        void OnWindowClosed(object sender, EventArgs e)
         {
             if (listenSubscription != null)
             {
